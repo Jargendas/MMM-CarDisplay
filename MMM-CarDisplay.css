@@ -1,0 +1,51 @@
+.MMM-CarDisplay .car-container {
+  width: 280px;
+  line-height: 1.50;
+  font-size: 20px;
+  padding: 0;
+  position: relative;
+  text-align: left;
+}
+
+.MMM-CarDisplay .car-container img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  max-width: 220px;
+  max-height: 95px;
+  top: 35px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.MMM-CarDisplay .car-container .fas {
+  width: 30px;
+  text-align: center;
+}
+
+.MMM-CarDisplay .car-container .locked {
+  width: 30px;
+}
+
+.MMM-CarDisplay .car-container .plugged {
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+.MMM-CarDisplay .car-container .mileage {
+  float: right;
+}
+
+.MMM-CarDisplay .car-container .fuelRange {
+  float: right;
+}
+
+.MMM-CarDisplay .car-container .updated {
+  font: 16px, Sans-Serif;
+  white-space: nowrap;
+  margin-left: -3px;
+}
+
+.MMM-CarDisplay .car-container.spacer {
+  height: 50px;
+}
