@@ -37,7 +37,7 @@ Module.register("MMM-CarDisplay", {
     this.instanceId = this.uuidv4();
     this.carInfo = {};
     this.getInfo();
-    self = this;
+    var self = this;
     this.updateTimer = setInterval(function(){self.getInfo()}, this.config.refresh * 60 * 1000);
     this.refreshTimer = setInterval(function(){self.updateDom(0)}, 30000); // Update DOM more often for "last updated" field to refresh.
   },
