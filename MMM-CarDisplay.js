@@ -62,7 +62,7 @@ Module.register("MMM-CarDisplay", {
           this.carInfo.electricRange = Math.round(this.carInfo.electricRange/kmPerMile);
           this.carInfo.fuelRange = Math.round(this.carInfo.fuelRange/kmPerMile);
       }
-      this.updateDom(100);
+      this.updateDom(1000);
     }
   },
 
@@ -146,7 +146,7 @@ Module.register("MMM-CarDisplay", {
           break;
       }
 
-      battery.appendChild(document.createTextNode(info.state_of_charge + " %"));
+      battery.appendChild(document.createTextNode(Math.floor(info.state_of_charge) + " %"));
     } else {
       battery.appendChild(document.createTextNode("⠀")); // For spacing
     }
@@ -157,7 +157,7 @@ Module.register("MMM-CarDisplay", {
     mileage.classList.add("mileage");
     if (this.config.showMileage && ("mileage" in info)) {
       mileage.appendChild(this.faIconFactory("fa-road"));
-      mileage.appendChild(document.createTextNode(info.mileage + (this.config.useUSUnits ? ' mi' : ' km')));
+      mileage.appendChild(document.createTextNode(Math.round(info.mileage) + (this.config.useUSUnits ? ' mi' : ' km')));
     } else {
       mileage.appendChild(document.createTextNode("\u00a0"));
     }
@@ -171,7 +171,7 @@ Module.register("MMM-CarDisplay", {
     elecRange.classList.add("elecRange");
     if (this.config.showElectricRange && ("electric_range" in info)) {
       elecRange.appendChild(this.faIconFactory("fa-charging-station"));
-      elecRange.appendChild(document.createTextNode(info.electric_range + (this.config.useUSUnits ? ' mi' : ' km')));
+      elecRange.appendChild(document.createTextNode(Math.round(info.electric_range) + (this.config.useUSUnits ? ' mi' : ' km')));
     } else {
       elecRange.appendChild(document.createTextNode("\u00a0"));
     }
@@ -201,7 +201,7 @@ Module.register("MMM-CarDisplay", {
     fuelRange.classList.add("fuelRange");
     if ((this.config.showFuelRange) && ("fuel_range" in info)) {
       fuelRange.appendChild(this.faIconFactory("fa-gas-pump"));
-      fuelRange.appendChild(document.createTextNode(info.fuel_range + (this.config.useUSUnits ? ' mi' : ' km')));
+      fuelRange.appendChild(document.createTextNode(Math.round(info.fuel_range) + (this.config.useUSUnits ? ' mi' : ' km')));
     } else {
       fuelRange.appendChild(document.createTextNode("\u00a0"));
     }
