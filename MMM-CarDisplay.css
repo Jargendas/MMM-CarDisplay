@@ -27,6 +27,10 @@
   width: 30px;
 }
 
+.MMM-CarDisplay .car-container .aircon {
+  width: 30px;
+}
+
 .MMM-CarDisplay .car-container .plugged {
   margin-left: -3px;
   margin-right: -3px;

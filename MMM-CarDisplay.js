@@ -196,6 +196,15 @@ Module.register("MMM-CarDisplay", {
       }
     }
     carContainer.appendChild(locked);
+
+    var aircon = document.createElement("span");
+    aircon.classList.add("aircon");
+    if ("aircon" in info && info.aircon) {
+      aircon.appendChild(this.faIconFactory("fa-snowflake"));
+    } else {
+      aircon.appendChild(document.createTextNode("\u00a0"));
+    }
+    carContainer.appendChild(aircon);
     
     var fuelRange = document.createElement("span");
     fuelRange.classList.add("fuelRange");
