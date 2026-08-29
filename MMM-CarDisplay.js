@@ -62,7 +62,7 @@ Module.register("MMM-CarDisplay", {
           this.carInfo.electricRange = Math.round(this.carInfo.electricRange/kmPerMile);
           this.carInfo.fuelRange = Math.round(this.carInfo.fuelRange/kmPerMile);
       }
-      this.updateDom(1000);
+      this.updateDom(0);
     }
   },
 
