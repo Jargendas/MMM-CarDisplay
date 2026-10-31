@@ -4,6 +4,7 @@ Module.register("MMM-CarDisplay", {
   defaults: {
     artwork: "",
     downloadImage: false,
+    imageZoom: 1,
     refresh: 1,
     vehicleOpacity: 0.75,
     useUSUnits: false,
@@ -109,8 +110,18 @@ Module.register("MMM-CarDisplay", {
       imageSource = "/modules/MMM-CarDisplay/cache/" + encodeURIComponent(info.imageFile) + "?t=" + this.imageVersion;
     }
     imageObject.setAttribute('src', imageSource);
+    var zoom = Number(this.config.imageZoom);
+    if (!(zoom > 0)) zoom = 1;
     imageObject.setAttribute('style', 'opacity: ' + this.config.vehicleOpacity + ';');
-    imageContainer.appendChild(imageObject);
+    // The frame clips a zoomed image, so the surrounding layout is not affected.
+    var imageFrame = document.createElement("div");
+    imageFrame.classList.add("car-image-frame");
+    if (zoom !== 1) {
+      imageFrame.classList.add("zoomed");
+      imageObject.style.transform = "translate(-50%, -50%) scale(" + zoom + ")";
+    }
+    imageFrame.appendChild(imageObject);
+    imageContainer.appendChild(imageFrame);
     carContainer.appendChild(imageContainer);
     
     wrapper.appendChild(carContainer);
