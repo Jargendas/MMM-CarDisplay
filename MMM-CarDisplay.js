@@ -3,6 +3,7 @@ const kmPerMile = 1.60934;
 Module.register("MMM-CarDisplay", {
   defaults: {
     artwork: "",
+    downloadImage: false,
     refresh: 1,
     vehicleOpacity: 0.75,
     useUSUnits: false,
@@ -46,7 +47,8 @@ Module.register("MMM-CarDisplay", {
     this.sendSocketNotification("MMM-CARDISPLAY-REQUEST", {
       instanceId: this.instanceId,
       requestUrl: this.config.requestUrl,
-      hassAPIKey: this.config.hassAPIKey
+      hassAPIKey: this.config.hassAPIKey,
+      downloadImage: this.config.downloadImage
     });
   },
 
@@ -57,6 +59,7 @@ Module.register("MMM-CarDisplay", {
       payload["instanceId"] == this.instanceId
     ) {
       this.carInfo = payload;
+      this.imageVersion = Date.now(); // Avoids showing a stale browser-cached image.
       if (this.config.useUSUnits) {
           this.carInfo.mileage = Math.round(this.carInfo.mileage/kmPerMile);
           this.carInfo.electricRange = Math.round(this.carInfo.electricRange/kmPerMile);
@@ -101,7 +104,11 @@ Module.register("MMM-CarDisplay", {
 
     var imageContainer = document.createElement("span");
     var imageObject = document.createElement("img");
-    imageObject.setAttribute('src', "/modules/MMM-CarDisplay/"+this.config.artwork);
+    var imageSource = "/modules/MMM-CarDisplay/" + this.config.artwork;
+    if (this.config.downloadImage && info.imageFile) {
+      imageSource = "/modules/MMM-CarDisplay/cache/" + encodeURIComponent(info.imageFile) + "?t=" + this.imageVersion;
+    }
+    imageObject.setAttribute('src', imageSource);
     imageObject.setAttribute('style', 'opacity: ' + this.config.vehicleOpacity + ';');
     imageContainer.appendChild(imageObject);
     carContainer.appendChild(imageContainer);

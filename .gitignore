@@ -65,3 +65,6 @@ car*.png
 
 # auth data
 *.json
+
+# Downloaded vehicle images
+cache/
