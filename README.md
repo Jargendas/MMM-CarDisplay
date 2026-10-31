@@ -89,6 +89,7 @@ configuration. The module uses the following fields when they are present:
 | `state_of_charge` | number | Battery charge percentage, displayed together with a battery icon. |
 | `connector_status` | boolean | Shows a charging icon when `true`. |
 | `door_lock` | boolean | `false` displays a locked icon; `true` displays an unlocked icon. |
+| `image` | string | URL or path (relative to `requestUrl`) of the vehicle image. Only used when `downloadImage` is enabled; `homeassistant-vehicle-interface` provides it as `/api/<identifier>/image` when a vehicle image is configured. |
 | `update_time` | date/time string | Timestamp parsed by Moment.js and displayed relative to the current time. |
 | `error` | string | Displays the error text instead of the vehicle data. |
 
@@ -97,12 +98,29 @@ are omitted from the corresponding part of the display. In particular, omit
 `electric_range` for a vehicle without electric data if the battery row should
 not be displayed.
 
+### Downloading the vehicle image
+
+If the endpoint returns an `image` field, as the
+[homeassistant-vehicle-interface](https://github.com/Jargendas/homeassistant-vehicle-interface)
+integration does when a **Vehicle Image** entity is configured, set
+`downloadImage: true` to let the module fetch the image through the API:
+
+    config: {
+        requestUrl: "http://homeassistant.local:8123/api/my_car",
+        hassAPIKey: "YOUR_LONG_LIVED_ACCESS_TOKEN",
+        downloadImage: true
+    }
+
+The image is stored in `modules/MMM-CarDisplay/cache/`. The access token is
+only sent to the host of `requestUrl`.
+
 ## Module configuration
 
 | Option | Description | Default |
 | --- | --- | --- |
 | `requestUrl` | URL queried by the node helper. Required. | — |
 | `artwork` | Image filename or path relative to the module directory. | `""` |
+| `downloadImage` | Downloads the vehicle image from the `image` field of the response (using `hassAPIKey`) into the module's `cache` directory and displays it instead of `artwork`. If no image is returned or the download fails, `artwork` is used. The image is refreshed once per day. | `false` |
 | `refresh` | Data refresh interval in minutes. | `1` |
 | `vehicleOpacity` | Opacity of the vehicle image, from `0` to `1`. | `0.75` |
 | `useUSUnits` | Uses miles (`mi`) instead of kilometres (`km`) for distance display. | `false` |
@@ -141,3 +159,6 @@ source.
 
 **2026-04-06** Improved multi-instance behaviour and rounded displayed vehicle
 values for a cleaner presentation.
+
+**2026-10-31** Added the `downloadImage` option to download the vehicle image
+via the API.
