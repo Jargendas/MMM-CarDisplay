@@ -7,15 +7,29 @@
   text-align: left;
 }
 
-.MMM-CarDisplay .car-container img {
+.MMM-CarDisplay .car-container .car-image-frame {
+  position: absolute;
+  width: 220px;
+  height: 95px;
+  top: 35px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  overflow: hidden;
+}
+
+.MMM-CarDisplay .car-container .car-image-frame img {
   position: absolute;
   width: auto;
   height: auto;
   max-width: 220px;
   max-height: 95px;
-  top: 35px;
+  top: 0;
   left: 50%;
   transform: translate(-50%, 0%);
+}
+
+.MMM-CarDisplay .car-container .car-image-frame.zoomed img {
+  top: 50%;
 }
 
 .MMM-CarDisplay .car-container .fas {

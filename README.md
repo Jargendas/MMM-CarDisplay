@@ -122,6 +122,7 @@ only sent to the host of `requestUrl`.
 | `artwork` | Image filename or path relative to the module directory. | `""` |
 | `downloadImage` | Downloads the vehicle image from the `image` field of the response (using `hassAPIKey`) into the module's `cache` directory and displays it instead of `artwork`. If no image is returned or the download fails, `artwork` is used. The image is refreshed once per day. | `false` |
 | `refresh` | Data refresh interval in minutes. | `1` |
+| `imageZoom` | Zoom factor of the vehicle image, e.g. `1.4`, useful if the image has large margins. Values above `1` crop the image to the original image area, so the layout stays unchanged. | `1` |
 | `vehicleOpacity` | Opacity of the vehicle image, from `0` to `1`. | `0.75` |
 | `useUSUnits` | Uses miles (`mi`) instead of kilometres (`km`) for distance display. | `false` |
 | `showMileage` | Shows the total mileage when `mileage` is available. | `true` |
@@ -162,3 +163,6 @@ values for a cleaner presentation.
 
 **2026-10-31** Added the `downloadImage` option to download the vehicle image
 via the API.
+
+**2026-10-31** Added the `imageZoom` option to crop large margins of the
+vehicle image.
