@@ -53,6 +53,14 @@ Module.register("MMM-CarDisplay", {
     });
   },
 
+  notificationReceived: function (notification, payload) {
+    if (notification === "WEATHER_UPDATED" && payload && payload.currentWeather &&
+        typeof payload.currentWeather.temperature === "number") {
+      this.outsideTemperature = payload.currentWeather.temperature;
+      this.updateDom(0);
+    }
+  },
+
   socketNotificationReceived: function (notification, payload) {
     if (
       notification === "MMM-CARDISPLAY-RESPONSE" &&
@@ -218,7 +226,10 @@ Module.register("MMM-CarDisplay", {
     var aircon = document.createElement("span");
     aircon.classList.add("aircon");
     if ("aircon" in info && info.aircon) {
-      aircon.appendChild(this.faIconFactory("fa-snowflake"));
+      // Weather module reports in its own units; assume Fahrenheit when useUSUnits is set.
+      var threshold = this.config.useUSUnits ? 68 : 20;
+      var cold = this.outsideTemperature !== undefined && this.outsideTemperature < threshold;
+      aircon.appendChild(this.faIconFactory(cold ? "fa-fire" : "fa-snowflake"));
     } else {
       aircon.appendChild(document.createTextNode("\u00a0"));
     }
